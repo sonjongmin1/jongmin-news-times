@@ -1,7 +1,7 @@
 const API_KEY = `bb1b88cbeaa145ee9d93a45cfefc5091`
 let newsList = [];
 const getLatestNews = async() =>{
-    const url = new URL (`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
+    const url = new URL (`http://jongmin-news-times.netlify.app/top-headlines=${API_KEY}`);
     const response = await fetch(url);    
     const data = await response.json();
     newsList = data.articles;
