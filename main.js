@@ -25,7 +25,7 @@ const getNewsByCategory=async(event)=>{
 };
 
 const getNewsByKeyword=async()=>{
-  const keyword = document.getElementById("serach-input").value;
+  const keyword = document.getElementById("search-input").value;
   console.log("keyword",keyword);
   const url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`
   );
@@ -60,7 +60,3 @@ const render = () => {
 };
 
 getLatestNews();
-
-//1. 버튼들에 클릭 이벤트주기
-//2. 카테고리별 누스 가져오기
-//3. 그 뉴스를 보여주기
