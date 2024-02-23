@@ -11,6 +11,9 @@ const getNews = async() =>{
 
     const data = await response.json();
     if(response.status===200){
+      if(data.articles.length===0){
+        throw new Error("No result for this search");
+      }
       newsList = data.articles;
       render();
     }else{
