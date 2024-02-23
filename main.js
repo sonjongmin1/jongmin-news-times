@@ -4,7 +4,7 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach(menu=>menu.addEventListener("click", (event)=>getNewsByCategory(event)))
 
 const getLatestNews = async() => {
-    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
+    const url = new URL(`http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=us&apiKey=${API_KEY}`);
     const response = await fetch(url);
     const data = await response.json(); // body안에 data는 json()으로 뽑아줘야됨, json은 파일 형식, 객체
     newsList = data.articles;
@@ -16,7 +16,7 @@ const getNewsByCategory= async(event)=>{
   const category = event.target.textContent.toLowerCase();
   console.log("category", category);
   const url = new URL(
-    `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+    `http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
   );
   const response = await fetch(url);
   const data = await response.json();
@@ -28,7 +28,7 @@ const getNewsByCategory= async(event)=>{
 const getNewsByKeyword= async()=>{
     const keyword = document.getElementById("search-input").value;
     console.log("keyword",keyword);
-    const url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`)
+    const url = new URL(`http://times-node-env.eba-appvq3ef.ap-northeast-2.elasticbeanstalk.com/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`)
 
     const response = await fetch(url);
     const data = await response.json();
