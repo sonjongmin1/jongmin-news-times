@@ -6,11 +6,21 @@ menus.forEach(menu=>menu.addEventListener("click", (event)=>getNewsByCategory(ev
 let url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`)
 
 const getNews = async() =>{
-  const response =await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  render();
-}
+  try{
+    const response =await fetch(url);
+
+    const data = await response.json();
+    if(response.status===200){
+      newsList = data.articles;
+      render();
+    }else{
+      throw new Error(data.message)
+    }
+
+  } catch(error){
+    errorRender(error.message)
+  }
+};
 
 const getLatestNews = async() =>{
   url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
@@ -51,6 +61,14 @@ const render = () => {
 </div>`).join('');
 
   document.getElementById("news-board").innerHTML = newsHTML;
+};
+
+const errorRender = (errorMessage) => {
+const errorHTML =`<div class="alert alert-danger" role="alert">
+${errorMessage}
+</div>`;
+
+document.getElementById("news-board").innerHTML=errorHTML;
 };
 
 getLatestNews();
