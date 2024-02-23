@@ -1,0 +1,37 @@
+.head-line {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.head-line img {
+    width: 430px;
+}
+
+.menus {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    border-top:1px solid blue;
+    border-bottom: 4px double blue;
+}
+
+.menus button {
+    border:none;
+    background: none;
+    margin: 5px;
+}
+
+.menus button:hover {
+    background-color: skyblue;
+}
+
+.news-img-size{
+    max-width: 100%;
+    max-width: 250px;
+}
+
+.news{
+    border-bottom: 2px solid blue;
+}
