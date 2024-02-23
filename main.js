@@ -1,5 +1,7 @@
 const API_KEY=`bb1b88cbeaa145ee9d93a45cfefc5091`
 let newsList = [];
+const menus = document.querySelectorAll(".menus button")
+menus.forEach(menu=>menu.addEventListener("click", (event)=>getNewsByCategory(event)))
 
 const getLatestNews = async() =>{
   const url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
@@ -9,6 +11,33 @@ const getLatestNews = async() =>{
   render();
   console.log("ddd", newsList);
 };
+
+const getNewsByCategory=async(event)=>{
+  const category = event.target.textContent.toLowerCase();
+  console.log("category", category);
+  const url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+  );
+  const response = await fetch (url);
+  const data = await response.json();
+  console.log("Ddd",data)
+  newsList = data.articles;
+  render();
+};
+
+const getNewsByKeyword=async()=>{
+  const keyword = document.getElementById("serach-input").value;
+  console.log("keyword",keyword);
+  const url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`
+  );
+
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log("keyword data", data);
+  newsList = data.articles;
+  render();
+};
+
+
 
 const render = () => {
   const newsHTML = newsList.map(news=>` <div class="row news">
@@ -32,3 +61,6 @@ const render = () => {
 
 getLatestNews();
 
+//1. 버튼들에 클릭 이벤트주기
+//2. 카테고리별 누스 가져오기
+//3. 그 뉴스를 보여주기
