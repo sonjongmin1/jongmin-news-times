@@ -3,41 +3,36 @@ let newsList = [];
 const menus = document.querySelectorAll(".menus button")
 menus.forEach(menu=>menu.addEventListener("click", (event)=>getNewsByCategory(event)))
 
-const getLatestNews = async() =>{
-  const url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
-  const response =await fetch(url);
+let url = new URL(
+  `https://jongmin-news-times.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`
+  );
+
+const getNews = async() => {
+  const response = await fetch(url);
   const data = await response.json();
   newsList = data.articles;
   render();
-  console.log("ddd", newsList);
+};
+
+const getLatestNews = async() =>{
+  url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`
+  );
+  getNews();
 };
 
 const getNewsByCategory=async(event)=>{
   const category = event.target.textContent.toLowerCase();
-  console.log("category", category);
-  const url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+  url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
   );
-  const response = await fetch (url);
-  const data = await response.json();
-  console.log("Ddd",data)
-  newsList = data.articles;
-  render();
+  getNews();
 };
 
 const getNewsByKeyword=async()=>{
-  const keyword = document.getElementById("serach-input").value;
-  console.log("keyword",keyword);
-  const url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`
+  const keyword = document.getElementById("search-input").value;
+  url = new URL(`https://jongmin-news-times.netlify.app/top-headlines?country=kr&q=${keyword}&apiKey=${API_KEY}`
   );
-
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log("keyword data", data);
-  newsList = data.articles;
-  render();
+  getNews();
 };
-
-
 
 const render = () => {
   const newsHTML = newsList.map(news=>` <div class="row news">
