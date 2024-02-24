@@ -35,3 +35,8 @@
 .news{
     border-bottom: 2px solid black;
 }
+
+#search-input-container {
+    text-align: right;
+    margin-top: 1em;
+  }
