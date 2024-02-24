@@ -11,10 +11,22 @@ let url = new URL(
 );
 
 const getNews = async () => {
-  const response = await fetch(url);
-  const data = await response.json();
-  newsList = data.articles;
-  render();
+  try {
+    const response = await fetch(url);
+
+    const data = await response.json();
+    if (response.status === 200) {
+      if (data.articles.length === 0) {
+        throw new Error("No result for this search");
+      }
+      newsList = data.articles;
+      render();
+    } else {
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    errorRender(error.message);
+  }
 };
 
 const getLatestNews = async () => {
@@ -67,6 +79,14 @@ const render = () => {
     .join("");
 
   document.getElementById("news-board").innerHTML = newsHTML;
+};
+
+const errorRender = (errorMessage) => {
+  const errorHTML = `<div class="alert alert-danger" role="alert">
+    ${errorMessage}
+    </div>`;
+
+  document.getElementById("news-board").innerHTML = errorHTML;
 };
 
 getLatestNews();
